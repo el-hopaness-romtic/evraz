@@ -25,12 +25,10 @@ public class PropertySetterConfig {
                 .parse();
 
         Map<String, PropertySetter> map = new HashMap<>();
-        beans.forEach(b ->
-                map.put(
-                        b.getSensorName(),
-                        PropertySetter.of(b.getExgausterNumber(), b.getPath(), b.getPropName(), b.getType())
-                )
-        );
+        beans.forEach(b -> map.put(
+                b.getSensorName(),
+                PropertySetter.of(b.getExgausterNumber(), b.getPath(), b.getPropName(), b.getType())
+        ));
 
         return map;
     }

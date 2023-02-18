@@ -9,4 +9,8 @@ import lombok.RequiredArgsConstructor;
 public class ExgData {
     private final ObjectNode generalInfo;
     private final ObjectNode[] exgaustersInfo;
+
+    public ObjectNode getExgausterInfo(int index) {
+        return exgaustersInfo[index];
+    }
 }

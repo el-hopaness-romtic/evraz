@@ -24,7 +24,7 @@ public abstract class PropertySetter {
         if (isGeneral) {
             node = exgData.getGeneralInfo();
         } else {
-            node = exgData.getExgaustersInfo()[exgausterNumber];
+            node = exgData.getExgausterInfo(exgausterNumber);
         }
 
         return (ObjectNode) node.at(path);
