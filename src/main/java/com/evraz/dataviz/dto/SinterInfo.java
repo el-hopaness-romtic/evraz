@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class ExgData {
+public class SinterInfo {
     private final ObjectNode generalInfo;
     private final ObjectNode[] exgaustersInfo;
 

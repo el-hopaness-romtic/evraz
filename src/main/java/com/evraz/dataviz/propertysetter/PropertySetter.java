@@ -1,6 +1,6 @@
 package com.evraz.dataviz.propertysetter;
 
-import com.evraz.dataviz.dto.ExgData;
+import com.evraz.dataviz.dto.SinterInfo;
 import com.evraz.dataviz.factory.JsonPointerFactory;
 import com.fasterxml.jackson.core.JsonPointer;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -19,18 +19,18 @@ public abstract class PropertySetter {
         this.isGeneral = exgausterNumber == -1;
     }
 
-    protected ObjectNode getNode(ExgData exgData) {
+    protected ObjectNode getNode(SinterInfo sinterInfo) {
         JsonNode node;
         if (isGeneral) {
-            node = exgData.getGeneralInfo();
+            node = sinterInfo.getGeneralInfo();
         } else {
-            node = exgData.getExgausterInfo(exgausterNumber);
+            node = sinterInfo.getExgausterInfo(exgausterNumber);
         }
 
         return (ObjectNode) node.at(path);
     }
 
-    public abstract void setProperty(ExgData exgData, Object value);
+    public abstract void setProperty(SinterInfo sinterInfo, Object value);
 
     public static PropertySetter of(int exgausterNumber, String path, String propertyName, String type) {
         return switch (type) {

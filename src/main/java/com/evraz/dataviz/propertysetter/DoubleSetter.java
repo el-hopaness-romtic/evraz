@@ -1,6 +1,6 @@
 package com.evraz.dataviz.propertysetter;
 
-import com.evraz.dataviz.dto.ExgData;
+import com.evraz.dataviz.dto.SinterInfo;
 import com.fasterxml.jackson.databind.node.DoubleNode;
 
 public class DoubleSetter extends PropertySetter {
@@ -10,7 +10,7 @@ public class DoubleSetter extends PropertySetter {
     }
 
     @Override
-    public void setProperty(ExgData exgData, Object value) {
-        getNode(exgData).set(propertyName, (DoubleNode) value);
+    public void setProperty(SinterInfo sinterInfo, Object value) {
+        getNode(sinterInfo).set(propertyName, (DoubleNode) value);
     }
 }

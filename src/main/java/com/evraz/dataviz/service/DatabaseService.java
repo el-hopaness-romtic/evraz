@@ -1,6 +1,6 @@
 package com.evraz.dataviz.service;
 
-import com.evraz.dataviz.dto.ExgData;
+import com.evraz.dataviz.dto.SinterInfo;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,6 +23,7 @@ public class DatabaseService {
     private final KeyHolder keyHolder = new GeneratedKeyHolder();
     private final PreparedStatementCreatorFactory preparedStatementCreatorFactory;
     private final JdbcTemplate jdbcTemplate;
+    private SinterInfo actual;
 
     DatabaseService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -35,27 +36,29 @@ public class DatabaseService {
     }
 
     @Transactional
-    public void saveExgData(ExgData exgData) {
+    public void saveSinterInfo(SinterInfo sinterInfo) {
+        actual = sinterInfo;
+
         // в кафке данные прилетают в UTC
-        LocalDateTime mscDateTime = LocalDateTime.parse(exgData.getGeneralInfo().remove("moment").textValue()).plusHours(3);
+        LocalDateTime mscDateTime = LocalDateTime.parse(sinterInfo.getGeneralInfo().remove("moment").textValue()).plusHours(3);
         Timestamp timestamp = Timestamp.valueOf(mscDateTime);
 
         PreparedStatementCreator psc = preparedStatementCreatorFactory.newPreparedStatementCreator(
-                new Object[]{timestamp, exgData.getGeneralInfo().toString()}
+                new Object[]{timestamp, sinterInfo.getGeneralInfo().toString()}
         );
         jdbcTemplate.update(psc, keyHolder);
 
         jdbcTemplate.batchUpdate(
                 "INSERT INTO exgauster_info(id, exgauster_number, properties) VALUES (?, ?, ?)",
-                createBatchPreparedStatementSetter(exgData)
+                createBatchPreparedStatementSetter(sinterInfo)
         );
     }
 
-    private BatchPreparedStatementSetter createBatchPreparedStatementSetter(ExgData exgData) {
+    private BatchPreparedStatementSetter createBatchPreparedStatementSetter(SinterInfo sinterInfo) {
         return new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
-                ObjectNode objectNode = exgData.getExgausterInfo(i);
+                ObjectNode objectNode = sinterInfo.getExgausterInfo(i);
 
                 ps.setLong(1, keyHolder.getKeyAs(Long.class));
                 ps.setInt(2, i + 1);
@@ -64,7 +67,7 @@ public class DatabaseService {
 
             @Override
             public int getBatchSize() {
-                return exgData.getExgaustersInfo().length;
+                return sinterInfo.getExgaustersInfo().length;
             }
         };
     }

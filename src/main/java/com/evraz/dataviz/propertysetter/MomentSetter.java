@@ -1,6 +1,6 @@
 package com.evraz.dataviz.propertysetter;
 
-import com.evraz.dataviz.dto.ExgData;
+import com.evraz.dataviz.dto.SinterInfo;
 import com.fasterxml.jackson.databind.node.TextNode;
 
 public class MomentSetter extends PropertySetter {
@@ -10,7 +10,7 @@ public class MomentSetter extends PropertySetter {
     }
 
     @Override
-    public void setProperty(ExgData exgData, Object value) {
-        getNode(exgData).set(propertyName, (TextNode) value);
+    public void setProperty(SinterInfo sinterInfo, Object value) {
+        getNode(sinterInfo).set(propertyName, (TextNode) value);
     }
 }
