@@ -1,0 +1,55 @@
+{
+  "bearing": [
+    {
+      "heating_temperature": {},
+      "vibration": {
+        "axial": {},
+        "horizontal": {},
+        "vertical": {}
+      }
+    },
+    {
+      "heating_temperature": {},
+      "vibration": {
+        "axial": {},
+        "horizontal": {},
+        "vertical": {}
+      }
+    },
+    {
+      "heating_temperature": {}
+    },
+    {
+      "heating_temperature": {}
+    },
+    {
+      "heating_temperature": {}
+    },
+    {
+      "heating_temperature": {}
+    },
+    {
+      "heating_temperature": {},
+      "vibration": {
+        "axial": {},
+        "horizontal": {},
+        "vertical": {}
+      }
+    },
+    {
+      "heating_temperature": {},
+      "vibration": {
+        "axial": {},
+        "horizontal": {},
+        "vertical": {}
+      }
+    },
+    {
+      "heating_temperature": {}
+    }
+  ],
+  "cooler": {
+    "oil": {},
+    "water": {}
+  }
+}
