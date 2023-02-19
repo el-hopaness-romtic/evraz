@@ -1,0 +1,17 @@
+services:
+  backend:
+    image: service
+    build: .
+    environment: 
+      - DB_URL=psql-db
+      - TOPIC=zsmk-9433-dev-01
+      - GROUP_ID=demo-sgdgd0sqn
+    ports:
+      - 8080:80
+
+  psql-db:
+    image: postgres:15.2-alpine
+    environment: 
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
