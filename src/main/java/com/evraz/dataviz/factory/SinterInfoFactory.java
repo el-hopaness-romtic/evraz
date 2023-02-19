@@ -6,13 +6,16 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.Scanner;
 
 @Component
 public class SinterInfoFactory {
+
+    private static final String EXG_TEMPLATE_JSON = "exgTemplate.json";
+    private static final String GEN_TEMPLATE_JSON = "genTemplate.json";
 
     private final ObjectNode genTemplate;
     private final ObjectNode exgTemplate;
@@ -20,14 +23,16 @@ public class SinterInfoFactory {
 
     @SneakyThrows
     SinterInfoFactory(@Value("${EXG_COUNT:6}") int exgCount,
-                      @Value("${EXG_TEMPLATE_PATH:./src/main/resources/exgTemplate.json}") String exgTemplatePath,
-                      @Value("${EXG_TEMPLATE_PATH:./src/main/resources/genTemplate.json}") String genTemplatePath,
                       @Autowired ObjectMapper objectMapper) {
-        String content = Files.readString(Path.of(exgTemplatePath));
-        this.exgTemplate = (ObjectNode) objectMapper.readTree(content);
+        try (Scanner scan = new Scanner(new ClassPathResource(EXG_TEMPLATE_JSON).getInputStream())) {
+            scan.useDelimiter("\\Z");
+            this.exgTemplate = (ObjectNode) objectMapper.readTree(scan.next());
+        }
 
-        content = Files.readString(Path.of(genTemplatePath));
-        this.genTemplate = (ObjectNode) objectMapper.readTree(content);
+        try (Scanner scan = new Scanner(new ClassPathResource(GEN_TEMPLATE_JSON).getInputStream())) {
+            scan.useDelimiter("\\Z");
+            this.genTemplate = (ObjectNode) objectMapper.readTree(scan.next());
+        }
 
         this.exgCount = exgCount;
     }

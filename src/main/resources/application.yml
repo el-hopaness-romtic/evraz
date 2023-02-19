@@ -1,5 +1,4 @@
 server:
-  port: 8081
   servlet:
     encoding:
       force-response: true
@@ -11,7 +10,7 @@ spring:
     username: postgres
     password: postgres
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/
+    url: jdbc:postgresql://${DB_URL:localhost}:5432/
   kafka:
     bootstrap-servers: rc1a-b5e65f36lm3an1d5.mdb.yandexcloud.net:9091
     consumer:
@@ -26,6 +25,6 @@ spring:
         jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="9433_reader" password="eUIpgWu0PWTJaTrjhjQD3.hoyhntiK";
         mechanism: SCRAM-SHA-512
       ssl.truststore:
-        location: "./.keystore"
+        location: "${TRUSTSTORE_LOCATION:./.keystore}"
         password: 111111
 

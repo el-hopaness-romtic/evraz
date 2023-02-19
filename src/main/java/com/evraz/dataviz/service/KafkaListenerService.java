@@ -27,7 +27,7 @@ public class KafkaListenerService {
     @Autowired
     SinterService sinterService;
 
-    @KafkaListener(groupId = "deo123h4562", topics = "zsmk-9433-dev-01")
+    @KafkaListener(groupId = "${GROUP_ID:demo}", topics = "${TOPIC:zsmk-9433-dev-01}")
     public void listen(byte[] content, @Header(KafkaHeaders.OFFSET) int offset) throws IOException {
         SinterInfo sinterInfo = sinterInfoFactory.create();
 
