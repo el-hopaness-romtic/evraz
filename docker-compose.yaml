@@ -7,7 +7,7 @@ services:
       - TOPIC=zsmk-9433-dev-01
       - GROUP_ID=demo-sgdgd0sqn
     ports:
-      - 8080:80
+      - 80:8080
 
   psql-db:
     image: postgres:15.2-alpine
