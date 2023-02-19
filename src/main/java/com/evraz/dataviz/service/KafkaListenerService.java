@@ -25,7 +25,7 @@ public class KafkaListenerService {
     @Autowired
     private Map<String, PropertySetter> map;
     @Autowired
-    DatabaseService databaseService;
+    SinterService sinterService;
 
     @KafkaListener(groupId = "deo123h4562", topics = "zsmk-9433-dev-01")
     public void listen(byte[] content, @Header(KafkaHeaders.OFFSET) int offset) throws IOException {
@@ -45,6 +45,6 @@ public class KafkaListenerService {
                     }
                 });
 
-        databaseService.saveSinterInfo(sinterInfo);
+        sinterService.saveSinterInfo(sinterInfo);
     }
 }

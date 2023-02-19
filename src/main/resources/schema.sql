@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS general_info(
 );
 
 CREATE TABLE IF NOT EXISTS exgauster_info(
-  id BIGINT REFERENCES general_info(id),
+  general_info_id BIGINT REFERENCES general_info(id),
   exgauster_number smallint NOT NULL,
   properties text NOT NULL
 );
